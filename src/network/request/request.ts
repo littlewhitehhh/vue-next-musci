@@ -65,7 +65,7 @@ class MyRequest {
     return new Promise((resolve, reject) => {
       this.instance
         .request(config)
-        .then((res) => {
+        .then((res: any) => {
           resolve(res.data)
         })
         .catch((err) => {

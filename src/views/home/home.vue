@@ -1,15 +1,38 @@
 <template>
   <div class="home">
-    <el-button type="primary" @click="handleClick">hahah</el-button>
+    <!-- <el-button type="primary" @click="handleClick">hahah</el-button> -->
+
+    <el-container>
+      <el-aside width="200px" class="aside">
+        <my-aside></my-aside>
+      </el-aside>
+      <el-container>
+        <el-header>
+          <my-header></my-header>
+        </el-header>
+        <el-main>
+          <my-main></my-main>
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import MyAxios from '@/network/index'
-import axios from 'axios'
+
+import myHeader from '@/components/components/myHeader.vue'
+import myAside from '@/components/components/myAside.vue'
+import myMain from '@/components/components/myMain.vue'
+
 export default defineComponent({
   name: 'home',
+  components: {
+    myHeader,
+    myAside,
+    myMain
+  },
   setup() {
     const handleClick = () => {
       console.log('123')
@@ -24,4 +47,8 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less" scope></style>
+<style lang="less" scoped>
+.aside {
+  height: 100vh;
+}
+</style>
