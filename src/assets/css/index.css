@@ -1,4 +1,5 @@
 @import './normalize.css';
+@import './iconfont.css';
 html,
 body,
 #app {
@@ -7,4 +8,72 @@ body,
     height: 100%;
     width: 100%;
     /* background-color: red; */
+}
+
+
+/* element-plus  el-popover中的样式*/
+
+.el-popper.is-light {
+    max-height: 500px;
+    overflow: auto;
+}
+
+.hotSearch .listItem {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    color: rgb(150, 142, 142);
+    cursor: pointer;
+}
+
+.hotSearch .listItem:hover {
+    background-color: #eeeeee;
+}
+
+.hotSearch .listItem .index {
+    width: 50px;
+    height: 100%;
+    line-height: 50px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.hotSearch .listItem .itemContent {
+    width: calc(100%-50px);
+    height: 100%;
+}
+
+.hotSearch .listItem .itemContent .keywords {
+    color: #000;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.hotSearch .listItem .itemContent .socre {
+    font-size: 12px;
+}
+
+.hotSearch .listItem .itemContent .bottom {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.red {
+    color: red !important;
+}
+
+.hotSearch .search-suggest .title {
+    display: block;
+    margin-top: 10px;
+    background: #f5f5f7;
+}
+
+.hotSearch .search-suggest .content {
+    padding-left: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.hotSearch .search-suggest-item .content:hover {
+    background: #eeeeee;
 }
