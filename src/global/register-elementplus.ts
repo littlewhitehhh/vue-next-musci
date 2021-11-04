@@ -3,8 +3,10 @@ import { App } from 'vue'
 import 'element-plus/dist/index.css'
 import {
   ElAside,
+  ElAvatar,
   ElButton,
   ElContainer,
+  ElDialog,
   ElForm,
   ElFormItem,
   ElHeader,
@@ -22,7 +24,9 @@ const Components = [
   ElInput,
   ElForm,
   ElFormItem,
-  ElPopover
+  ElPopover,
+  ElAvatar,
+  ElDialog
 ]
 
 function registerElementPlus(app: App): void {

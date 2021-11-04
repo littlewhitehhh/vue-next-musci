@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import { searchHot } from '@/network/api/search'
 
+import login from './login/index'
 export default createStore({
   state: {
     hotSearchList: []
@@ -17,5 +18,5 @@ export default createStore({
       commit('changehotSearchList', hotSearchList)
     }
   },
-  modules: {}
+  modules: { login }
 })

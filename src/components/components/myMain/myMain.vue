@@ -1,5 +1,5 @@
 <template>
-  <div class="my-header">我是Main</div>
+  <div class="my-main">我是Main</div>
 </template>
 
 <script lang="ts">
@@ -13,4 +13,8 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.my-main {
+  min-width: 700px;
+}
+</style>

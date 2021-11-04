@@ -22,9 +22,9 @@
 import { defineComponent } from 'vue'
 import MyAxios from '@/network/index'
 
-import myHeader from '@/components/components/myHeader.vue'
-import myAside from '@/components/components/myAside.vue'
-import myMain from '@/components/components/myMain.vue'
+import myHeader from '@/components/components/myHeader/myHeader.vue'
+import myAside from '@/components/components/myAside/myAside.vue'
+import myMain from '@/components/components/myMain/myMain.vue'
 
 export default defineComponent({
   name: 'home',

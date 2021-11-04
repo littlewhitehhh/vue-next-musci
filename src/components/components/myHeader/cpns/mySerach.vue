@@ -26,7 +26,7 @@
           <div class="itemContent">
             <div class="top">
               <span class="keywords">{{ item.searchWord }}</span>
-              <span class="iconfont" :class="index < 3 ? 'icon-Fire red' : ''"></span>
+              <span class="iconfont" :class="index < 3 ? 'icon-fire red' : ''"></span>
               <span class="socre">{{ item.score }}</span>
             </div>
 
