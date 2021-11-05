@@ -6,4 +6,7 @@ export interface ILoginState {
   cookie: string
   loginType: number
   isLogin: boolean
+  playLsit: any[]
+  collectionPlayList: any[]
+  createdPlayList: any[]
 }

@@ -1,7 +1,7 @@
 import type { Module } from 'vuex'
 import { ILoginState } from '../login/types'
 
-import { LoginByPhone } from '@/network/api/login'
+import { LoginByPhone, getPlayList } from '@/network/api/login'
 
 const login: Module<ILoginState, any> = {
   namespaced: true,
@@ -13,7 +13,12 @@ const login: Module<ILoginState, any> = {
       account: {},
       cookie: '',
       loginType: 0,
-      isLogin: false
+      isLogin: false,
+      playLsit: [],
+      // 收藏的歌单
+      collectionPlayList: [],
+      // 创建的歌单
+      createdPlayList: []
     }
   },
   mutations: {
@@ -45,6 +50,20 @@ const login: Module<ILoginState, any> = {
     saveLoginType(state, loginType: number) {
       state.loginType = loginType
       // window.localStorage.setItem('token', token)
+    },
+    savePlayList(state, playlist: any[]) {
+      state.playLsit = playlist
+      // 先清空
+      state.collectionPlayList = []
+      state.createdPlayList = []
+      //添加
+      playlist.forEach((item) => {
+        if (item.subscribed === false) {
+          state.createdPlayList.push(item)
+        } else {
+          state.collectionPlayList.push(item)
+        }
+      })
     }
   },
   actions: {
@@ -53,6 +72,7 @@ const login: Module<ILoginState, any> = {
       const loginResult = await LoginByPhone(params)
       console.log(loginResult)
       if (loginResult.code === 200) {
+        //1、登陆成功后，储存账号部分信息  头像 名称  id
         const { token, profile, bindings, account, cookie, loginType } = loginResult
         commit('changeLoginState', true)
         commit('saveToken', token)
@@ -64,6 +84,11 @@ const login: Module<ILoginState, any> = {
         commit('saveAccount', account)
         commit('saveCookie', cookie)
         commit('saveLoginType', loginType)
+
+        //2、通过id获取用户歌单
+        const { playlist } = await getPlayList({ uid: account.id })
+        console.log(playlist)
+        commit('savePlayList', playlist)
       }
     }
   },

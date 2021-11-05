@@ -10,8 +10,11 @@ import {
   ElForm,
   ElFormItem,
   ElHeader,
+  ElIcon,
   ElInput,
   ElMain,
+  ElMenu,
+  ElMenuItem,
   ElPopover
 } from 'element-plus/lib/components'
 
@@ -26,7 +29,10 @@ const Components = [
   ElFormItem,
   ElPopover,
   ElAvatar,
-  ElDialog
+  ElDialog,
+  ElMenu,
+  ElMenuItem,
+  ElIcon
 ]
 
 function registerElementPlus(app: App): void {

@@ -57,3 +57,17 @@ export function logoutAccount(): any {
     url: '/logout'
   })
 }
+
+interface getPlayListType {
+  uid: number
+  limit?: number
+  offset?: number
+}
+
+//根据id 获取账号详情信息
+export function getPlayList(params: getPlayListType): any {
+  return MyAxios.get({
+    url: '/user/playlist',
+    params: params
+  })
+}

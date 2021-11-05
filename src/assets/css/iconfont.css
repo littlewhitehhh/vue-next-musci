@@ -1,21 +1,53 @@
 @font-face {
-    font-family: 'iconfont';
+    font-family: "iconfont";
     /* Project id 2910246 */
-    src: url('//at.alicdn.com/t/font_2910246_9ykumrxu83i.woff2?t=1635849622025') format('woff2'), url('//at.alicdn.com/t/font_2910246_9ykumrxu83i.woff?t=1635849622025') format('woff'), url('//at.alicdn.com/t/font_2910246_9ykumrxu83i.ttf?t=1635849622025') format('truetype');
+    src: url('//at.alicdn.com/t/font_2910246_92swe43k7jm.woff2?t=1636092652200') format('woff2'), url('//at.alicdn.com/t/font_2910246_92swe43k7jm.woff?t=1636092652200') format('woff'), url('//at.alicdn.com/t/font_2910246_92swe43k7jm.ttf?t=1636092652200') format('truetype');
 }
 
 .iconfont {
-    font-family: 'iconfont' !important;
+    font-family: "iconfont" !important;
     font-size: 16px;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-like:before {
+    content: "\e69c";
+}
+
+.icon-computer:before {
+    content: "\e762";
+}
+
+.icon-cloud-download:before {
+    content: "\e7d9";
+}
+
+.icon-zuijinliulan:before {
+    content: "\e62f";
+}
+
+.icon-recommend:before {
+    content: "\e728";
+}
+
+.icon-erji:before {
+    content: "\e6bf";
+}
+
+.icon-video:before {
+    content: "\e820";
+}
+
+.icon-vip:before {
+    content: "\e773";
+}
+
 .icon-fire:before {
-    content: '\e842';
+    content: "\e842";
 }
 
 .icon-github:before {
-    content: '\e645';
+    content: "\e645";
 }

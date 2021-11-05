@@ -50,5 +50,6 @@ export default defineComponent({
 <style lang="less" scoped>
 .aside {
   height: 100vh;
+  background-color: #ececec;
 }
 </style>
