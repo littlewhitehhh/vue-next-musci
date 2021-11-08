@@ -77,8 +77,9 @@ router.beforeEach((to, from, next) => {
       window.sessionStorage.setItem('activePath', '/musicHall')
       next({ path: '/musicHall' })
     }
+  } else {
+    next()
   }
-  next()
 })
 
 export default router

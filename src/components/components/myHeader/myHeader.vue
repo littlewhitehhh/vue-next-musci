@@ -1,11 +1,12 @@
 <template>
   <div class="my-header">
-    <div class="goBackBtns">
-      <div class="back el-icon-arrow-left"></div>
-      <div class="forward el-icon-arrow-right"></div>
+    <div class="left">
+      <div class="goBackBtns">
+        <div class="back el-icon-arrow-left"></div>
+        <div class="forward el-icon-arrow-right"></div>
+      </div>
+      <my-search></my-search>
     </div>
-    <my-search></my-search>
-
     <!-- tab- menu-->
     <div class="tab-menu">
       <!-- 登录组件 -->
@@ -78,8 +79,11 @@ export default defineComponent({
 .my-header {
   display: flex;
   align-content: center;
-  justify-content: space-around;
+  justify-content: space-between;
   min-width: 700px;
+  .left {
+    display: flex;
+  }
 }
 .goBackBtns {
   height: 100%;

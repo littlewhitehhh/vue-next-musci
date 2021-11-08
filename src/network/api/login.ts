@@ -64,10 +64,22 @@ interface getPlayListType {
   offset?: number
 }
 
-//根据id 获取账号详情信息
+//根据id 获取用户歌单（创建和收藏）
 export function getPlayList(params: getPlayListType): any {
   return MyAxios.get({
     url: '/user/playlist',
     params: params
   })
 }
+
+// 测试各个接口
+export function testApi(): any {
+  return MyAxios.get({
+    url: '/banner'
+  })
+}
+
+// 全部歌单分类 '/playlist/catlist'
+// 热门歌单分类 '/playlist/hot'
+// 网友热碟 /top/playlist
+// 精品歌单 /top/playlist/highquality

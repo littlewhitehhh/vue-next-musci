@@ -1,16 +1,15 @@
 <template>
   <div class="home">
     <!-- <el-button type="primary" @click="handleClick">hahah</el-button> -->
-
     <el-container>
       <el-aside width="200px" class="aside">
         <my-aside></my-aside>
       </el-aside>
       <el-container>
-        <el-header>
+        <el-header class="header">
           <my-header></my-header>
         </el-header>
-        <el-main>
+        <el-main class="mian">
           <my-main></my-main>
         </el-main>
       </el-container>
@@ -51,5 +50,8 @@ export default defineComponent({
 .aside {
   height: 100vh;
   background-color: #ececec;
+}
+.mian {
+  height: calc(100vh - 60px);
 }
 </style>

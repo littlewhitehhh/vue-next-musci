@@ -1,6 +1,7 @@
 <template>
-  <div class="my-main">我是Main</div>
-  <router-view></router-view>
+  <div class="my-main">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script lang="ts">
@@ -17,5 +18,6 @@ export default defineComponent({
 <style lang="less" scoped>
 .my-main {
   min-width: 700px;
+  padding: 0 20px;
 }
 </style>

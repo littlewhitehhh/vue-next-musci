@@ -5,6 +5,8 @@ import {
   ElAside,
   ElAvatar,
   ElButton,
+  ElCarousel,
+  ElCarouselItem,
   ElContainer,
   ElDialog,
   ElForm,
@@ -32,7 +34,9 @@ const Components = [
   ElDialog,
   ElMenu,
   ElMenuItem,
-  ElIcon
+  ElIcon,
+  ElCarousel,
+  ElCarouselItem
 ]
 
 function registerElementPlus(app: App): void {

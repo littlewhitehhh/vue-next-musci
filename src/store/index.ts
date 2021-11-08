@@ -2,6 +2,7 @@ import { createStore } from 'vuex'
 import { searchHot } from '@/network/api/search'
 
 import login from './login/index'
+import music from './music'
 export default createStore({
   state: {
     hotSearchList: []
@@ -18,5 +19,5 @@ export default createStore({
       commit('changehotSearchList', hotSearchList)
     }
   },
-  modules: { login }
+  modules: { login, music }
 })
