@@ -17,9 +17,24 @@ export function getRecommendPlaylist(limit = 10): any {
 }
 
 // 获取独家放送(入口列表)
-export function getPrivateConentList({ limit = 3, offset = 0 }): any {
+export function getPrivateConentList(): any {
   return MyAxios.get({
-    url: '/personalized/privatecontent/list',
-    params: { limit, offset }
+    url: '/personalized/privatecontent'
+  })
+}
+
+// 推荐新音乐
+export function getRcmdPlaylsit(limit = 12): any {
+  return MyAxios.get({
+    url: '/personalized/newsong',
+    params: { limit }
+  })
+}
+
+// 推荐mv
+
+export function getRcmdMV(): any {
+  return MyAxios.get({
+    url: '/personalized/mv'
   })
 }

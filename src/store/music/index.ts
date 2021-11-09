@@ -1,7 +1,13 @@
 import type { Module } from 'vuex'
 import { IMusicState } from './type'
 
-import { getBanner, getRecommendPlaylist } from '@/network/api/musicHall'
+import {
+  getBanner,
+  getRecommendPlaylist,
+  getPrivateConentList,
+  getRcmdPlaylsit,
+  getRcmdMV
+} from '@/network/api/musicHall'
 
 const music: Module<IMusicState, any> = {
   namespaced: true,
@@ -10,7 +16,13 @@ const music: Module<IMusicState, any> = {
       // 轮播图
       banners: [],
       //推荐歌单
-      recommendPlaylist: []
+      recommendPlaylist: [],
+      // 独家放送
+      privateContentList: [],
+      // 音乐先听列表（新音乐）
+      rcmdNewPlaylsit: [],
+      //推荐mv
+      rcmdMVlist: []
     }
   },
   mutations: {
@@ -18,8 +30,20 @@ const music: Module<IMusicState, any> = {
     saveBanners(state, banners) {
       state.banners = banners
     },
+    // 推荐歌单
     saveRecommendPlaylist(state, result) {
       state.recommendPlaylist = result
+    },
+    // 独家放送
+    savePrivatecontentList(state, privatecontentList) {
+      state.privateContentList = privatecontentList
+    },
+    // 获取推荐新音乐列表(推荐音乐先听)
+    saveRcmdNewPlaylsit(state, rcmdNewPlaylsit) {
+      state.rcmdNewPlaylsit = rcmdNewPlaylsit
+    },
+    saveRcmdMVlist(state, rcmdMVlist) {
+      state.rcmdMVlist = rcmdMVlist
     }
   },
   actions: {
@@ -34,6 +58,20 @@ const music: Module<IMusicState, any> = {
       const { result } = await getRecommendPlaylist()
       // console.log(result)
       commit('saveRecommendPlaylist', result)
+
+      // 3、获取独家放送
+      const { result: privatecontentList } = await getPrivateConentList()
+      commit('savePrivatecontentList', privatecontentList)
+      // console.log(privatecontentList)
+
+      // 获取音乐先听（推荐新音乐）
+      const { result: rcmdPlaylsit } = await getRcmdPlaylsit()
+      // console.log(rcmdPlaylsit)
+      commit('saveRcmdNewPlaylsit', rcmdPlaylsit)
+
+      //获取推荐mv
+      const { result: rcmdMVlist } = await getRcmdMV()
+      commit('saveRcmdMVlist', rcmdMVlist)
     }
   },
   getters: {}
