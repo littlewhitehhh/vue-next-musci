@@ -6,7 +6,11 @@ import {
   getRecommendPlaylist,
   getPrivateConentList,
   getRcmdPlaylsit,
-  getRcmdMV
+  getRcmdMV,
+  gethotTags,
+  getTopPlaylist,
+  getHighqualityTags,
+  getHighqualityPlaylist
 } from '@/network/api/musicHall'
 
 const music: Module<IMusicState, any> = {
@@ -22,7 +26,15 @@ const music: Module<IMusicState, any> = {
       // 音乐先听列表（新音乐）
       rcmdNewPlaylsit: [],
       //推荐mv
-      rcmdMVlist: []
+      rcmdMVlist: [],
+      //热门标签
+      hotTags: [{ name: '全部', id: 1 }],
+      // 热门歌单列表
+      hotPlaylist: [],
+      // 精品标签
+      highqualityTags: [],
+      // 精品歌单列表
+      highqualityPlaylist: []
     }
   },
   mutations: {
@@ -42,12 +54,33 @@ const music: Module<IMusicState, any> = {
     saveRcmdNewPlaylsit(state, rcmdNewPlaylsit) {
       state.rcmdNewPlaylsit = rcmdNewPlaylsit
     },
+    // 推荐mv
     saveRcmdMVlist(state, rcmdMVlist) {
       state.rcmdMVlist = rcmdMVlist
+    },
+    //热门歌单标签
+    saveHotTags(state, hotTags) {
+      // 先清空
+      state.hotTags = [{ name: '全部', id: 1 }]
+      for (const item of hotTags) {
+        state.hotTags.push(item)
+      }
+    },
+    //热门歌单列表
+    saveHotPlaylist(state, hotPlaylist) {
+      state.hotPlaylist = hotPlaylist
+    },
+    // 精品歌单标签
+    saveHighqualityTags(state, highqualityTags) {
+      state.highqualityTags = highqualityTags
+    },
+    saveHighqualityPlaylist(state, highqualityPlaylist) {
+      state.highqualityPlaylist = highqualityPlaylist
     }
   },
   actions: {
     // 动态组件获取所需数据
+    //获取featured页面数据
     async getFeaturedData({ commit }) {
       // 1、获取轮播图数据
       const { banners } = await getBanner()
@@ -72,6 +105,30 @@ const music: Module<IMusicState, any> = {
       //获取推荐mv
       const { result: rcmdMVlist } = await getRcmdMV()
       commit('saveRcmdMVlist', rcmdMVlist)
+    },
+
+    // 获取playlist页面数据
+    async getPlayListData({ commit }, params) {
+      console.log(params)
+
+      // 1、获取网友热碟热门标签
+      const { tags } = await gethotTags()
+      // console.log(tags)
+      commit('saveHotTags', tags)
+
+      // 2、获取网友热碟歌单列表
+      const { playlists: hotPlaylist } = await getTopPlaylist(params)
+      // console.log(hotPlaylist)
+      commit('saveHotPlaylist', hotPlaylist)
+
+      // 3、 获取精品推荐标签
+      // const result = await getHighqualityTags()
+      // console.log(result)
+
+      // 4、获取精品歌单
+      const { playlists: highqualityPlaylist } = await getHighqualityPlaylist(params)
+      // console.log(highqualityPlaylist)
+      commit('saveHighqualityPlaylist', highqualityPlaylist)
     }
   },
   getters: {}

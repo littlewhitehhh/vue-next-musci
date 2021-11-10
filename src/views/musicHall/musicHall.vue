@@ -10,11 +10,7 @@
     ></tabs>
 
     <!-- 动态组件  显示tabs标题的详情 -->
-    <component
-      :is="currentComponent"
-      @changeTabs="change"
-      @changeTabComponent="changeTabComponent"
-    ></component>
+    <component :is="currentComponent" @changeTabComponent="changeTabComponent"></component>
   </div>
 </template>
 

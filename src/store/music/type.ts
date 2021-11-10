@@ -5,4 +5,8 @@ export interface IMusicState {
   privateContentList: any[]
   rcmdNewPlaylsit: any[]
   rcmdMVlist: any[]
+  hotTags: any[]
+  highqualityTags: any[]
+  hotPlaylist: any[]
+  highqualityPlaylist: any[]
 }

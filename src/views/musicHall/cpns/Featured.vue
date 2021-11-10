@@ -177,7 +177,7 @@ export default defineComponent({
 
   .recommend-playlst {
     display: grid;
-    grid-template-columns: repeat(5, 19%);
+    grid-template-columns: repeat(5, 18.5%);
     grid-gap: 20px 20px;
     margin: 20px 0;
     cursor: pointer;
@@ -200,7 +200,7 @@ export default defineComponent({
   }
   .private-content-list {
     display: grid;
-    grid-template-columns: repeat(3, 33%);
+    grid-template-columns: repeat(3, 32%);
     grid-gap: 20px 20px;
     margin: 20px 0;
     cursor: pointer;
@@ -258,7 +258,7 @@ export default defineComponent({
   }
   .mv-lsit {
     display: grid;
-    grid-template-columns: repeat(4, 24%);
+    grid-template-columns: repeat(4, 23.5%);
     grid-gap: 20px 20px;
     margin: 20px 0;
     cursor: pointer;
