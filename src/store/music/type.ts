@@ -9,4 +9,5 @@ export interface IMusicState {
   highqualityTags: any[]
   hotPlaylist: any[]
   highqualityPlaylist: any[]
+  allPrivateContentList: any[]
 }

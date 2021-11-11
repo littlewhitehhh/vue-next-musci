@@ -86,3 +86,17 @@ export function getHighqualityPlaylist(params: getHighqualityPlaylistType): any 
 // /top/playlist  网友精选碟 歌单
 // /playlist/highquality/tags 精品歌单标签
 // /top/playlist/highquality  精品歌单
+
+//  privateContent页面
+
+interface AllPrivateConentList {
+  limit?: number
+  offset?: number
+}
+
+export function getAllPrivateConentList(params: AllPrivateConentList): any {
+  return MyAxios.get({
+    url: '/personalized/privatecontent/list',
+    params
+  })
+}

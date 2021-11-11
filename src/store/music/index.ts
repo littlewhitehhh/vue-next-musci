@@ -9,8 +9,9 @@ import {
   getRcmdMV,
   gethotTags,
   getTopPlaylist,
-  getHighqualityTags,
-  getHighqualityPlaylist
+  // getHighqualityTags,
+  getHighqualityPlaylist,
+  getAllPrivateConentList
 } from '@/network/api/musicHall'
 
 const music: Module<IMusicState, any> = {
@@ -21,7 +22,7 @@ const music: Module<IMusicState, any> = {
       banners: [],
       //推荐歌单
       recommendPlaylist: [],
-      // 独家放送
+      // 独家放送（入口列表）
       privateContentList: [],
       // 音乐先听列表（新音乐）
       rcmdNewPlaylsit: [],
@@ -34,7 +35,9 @@ const music: Module<IMusicState, any> = {
       // 精品标签
       highqualityTags: [],
       // 精品歌单列表
-      highqualityPlaylist: []
+      highqualityPlaylist: [],
+      // 独家放送(全部)
+      allPrivateContentList: []
     }
   },
   mutations: {
@@ -46,7 +49,7 @@ const music: Module<IMusicState, any> = {
     saveRecommendPlaylist(state, result) {
       state.recommendPlaylist = result
     },
-    // 独家放送
+    // 独家放送（入口列表）
     savePrivatecontentList(state, privatecontentList) {
       state.privateContentList = privatecontentList
     },
@@ -76,6 +79,14 @@ const music: Module<IMusicState, any> = {
     },
     saveHighqualityPlaylist(state, highqualityPlaylist) {
       state.highqualityPlaylist = highqualityPlaylist
+    },
+
+    // 独家放送（全部）
+    saveAllPrivatecontentList(state, allPrivatecontentList) {
+      // for (const item of allPrivatecontentList) {
+      //   state.allPrivateContentList.push(item)
+      // }
+      state.allPrivateContentList = allPrivatecontentList
     }
   },
   actions: {
@@ -109,7 +120,7 @@ const music: Module<IMusicState, any> = {
 
     // 获取playlist页面数据
     async getPlayListData({ commit }, params) {
-      console.log(params)
+      // console.log(params)
 
       // 1、获取网友热碟热门标签
       const { tags } = await gethotTags()
@@ -129,6 +140,14 @@ const music: Module<IMusicState, any> = {
       const { playlists: highqualityPlaylist } = await getHighqualityPlaylist(params)
       // console.log(highqualityPlaylist)
       commit('saveHighqualityPlaylist', highqualityPlaylist)
+    },
+
+    //获取独家放送页面数据
+    async getPrivateContentData({ commit }) {
+      // 获取独家放送列表
+      const { result: allPrivatecontentList } = await getAllPrivateConentList({})
+      console.log(allPrivatecontentList)
+      commit('saveAllPrivatecontentList', allPrivatecontentList)
     }
   },
   getters: {}
