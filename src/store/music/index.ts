@@ -11,7 +11,10 @@ import {
   getTopPlaylist,
   // getHighqualityTags,
   getHighqualityPlaylist,
-  getAllPrivateConentList
+  getAllPrivateConentList,
+  getTopList,
+  getArtist,
+  getNewSongs
 } from '@/network/api/musicHall'
 
 const music: Module<IMusicState, any> = {
@@ -37,7 +40,15 @@ const music: Module<IMusicState, any> = {
       // 精品歌单列表
       highqualityPlaylist: [],
       // 独家放送(全部)
-      allPrivateContentList: []
+      allPrivateContentList: [],
+      // 获取排行榜单
+      toplist: [],
+      superList: [], //超级榜
+      cloudList: [], //云听榜
+      globalList: [], //全球榜
+      patternList: [], //花样榜
+      artistsList: [], //歌手列表
+      newSongsList: [] //新歌速递
     }
   },
   mutations: {
@@ -87,6 +98,50 @@ const music: Module<IMusicState, any> = {
       //   state.allPrivateContentList.push(item)
       // }
       state.allPrivateContentList = allPrivatecontentList
+    },
+
+    //排行榜单
+    saveToplist(state, list) {
+      state.toplist = list
+      state.superList = []
+      state.cloudList = []
+      state.patternList = []
+      state.globalList = []
+      //对排行榜单进行分类处理
+      for (const [index, item] of list.entries()) {
+        // 先清空后赋值
+        // console.log(index, item) // 0：item
+
+        if (index < 4) {
+          state.superList.push(item)
+        } else if (item.name.indexOf('云音乐') !== -1 || item.name.indexOf('语榜') !== -1) {
+          state.cloudList.push(item)
+        } else {
+          switch (item.name) {
+            case '黑胶VIP爱听榜':
+            case 'KTV唛榜':
+            case '中国新乡村音乐排行榜':
+            case '潜力爆款榜':
+            case '听歌识曲榜':
+            case '网络热歌榜':
+              state.patternList.push(item)
+
+              break
+            default:
+              state.globalList.push(item)
+
+              break
+          }
+        }
+      }
+    },
+    // 歌手名单
+    savaArtistsList(state, artists) {
+      state.artistsList = artists
+    },
+    // 新歌列表
+    saveNewSongsList(state, newSongsList) {
+      state.newSongsList = newSongsList
     }
   },
   actions: {
@@ -148,6 +203,27 @@ const music: Module<IMusicState, any> = {
       const { result: allPrivatecontentList } = await getAllPrivateConentList({})
       console.log(allPrivatecontentList)
       commit('saveAllPrivatecontentList', allPrivatecontentList)
+    },
+
+    // 获取排行榜数据
+    async getLeaderboardDate({ commit }) {
+      const { list } = await getTopList()
+      console.log(list)
+      commit('saveToplist', list)
+    },
+
+    // 获取歌手页面数据
+    async getArtistData({ commit }, params) {
+      const { artists } = await getArtist(params)
+      console.log(artists)
+      commit('savaArtistsList', artists)
+    },
+
+    // 获取新歌速递页面数据
+    async getNewSongsData({ commit }, params) {
+      const { data } = await getNewSongs(params)
+      // console.log(data)
+      commit('saveNewSongsList', data)
     }
   },
   getters: {}

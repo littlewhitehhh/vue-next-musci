@@ -100,3 +100,36 @@ export function getAllPrivateConentList(params: AllPrivateConentList): any {
     params
   })
 }
+
+//排行榜 页面
+export function getTopList(): any {
+  return MyAxios.get({
+    url: '/toplist/detail'
+  })
+}
+
+// 获取歌手信息
+interface getArtistType {
+  limit?: number
+  offset?: number
+
+  type?: string
+  area?: string
+}
+export function getArtist(params: getArtistType): any {
+  return MyAxios.get({
+    url: '/artist/list',
+    params
+  })
+}
+
+// 获取新歌速递列表
+interface getNewSongsType {
+  type: string
+}
+export function getNewSongs(params: getNewSongsType): any {
+  return MyAxios.get({
+    url: '/top/song',
+    params
+  })
+}

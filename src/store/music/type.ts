@@ -10,4 +10,11 @@ export interface IMusicState {
   hotPlaylist: any[]
   highqualityPlaylist: any[]
   allPrivateContentList: any[]
+  toplist: any[]
+  superList: any[]
+  cloudList: any[]
+  globalList: any[]
+  patternList: any[]
+  artistsList: any[]
+  newSongsList: any[]
 }
