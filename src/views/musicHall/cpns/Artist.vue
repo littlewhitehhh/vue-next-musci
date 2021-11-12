@@ -13,7 +13,7 @@
           </div>
         </template>
       </div>
-      <!-- area Types-->
+      <!--  Types Tabd-->
       <div class="type">
         <template v-for="(item, index) in types" :key="item.value">
           <div

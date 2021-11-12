@@ -3,6 +3,7 @@ import { searchHot } from '@/network/api/search'
 
 import login from './login/index'
 import music from './music'
+import video from './video/index'
 export default createStore({
   state: {
     hotSearchList: []
@@ -19,5 +20,5 @@ export default createStore({
       commit('changehotSearchList', hotSearchList)
     }
   },
-  modules: { login, music }
+  modules: { login, music, video }
 })
