@@ -14,27 +14,7 @@
     </div>
 
     <div class="newSongs-list">
-      <template v-for="item in newSongsList" :key="item.id">
-        <div class="newSongs-list-item">
-          <!-- 歌曲信息 -->
-          <div class="content">
-            <img :src="item.album?.picUrl" alt="" />
-            <div class="title">
-              <span class="name">{{ item.name }}</span>
-              <span class="singer" v-for="artist in item.artists" :key="artist.id">{{
-                artist.name
-              }}</span>
-            </div>
-          </div>
-          <!-- 专辑名字 -->
-          <span class="album">
-            {{ item.album.name }}
-          </span>
-
-          <!--时间  -->
-          <span class="time">{{ timeFormat(item.duration) }}</span>
-        </div>
-      </template>
+      <music-list :musicList="newSongsList"></music-list>
     </div>
   </div>
 </template>
@@ -43,8 +23,13 @@
 import { defineComponent, reactive, computed, ref } from 'vue'
 import { useStore } from 'vuex'
 
+import musicList from '@/components/common/musicItem/musicItem.vue'
 import timeFormat from '@/utils/timeFormat'
+
 export default defineComponent({
+  components: {
+    musicList
+  },
   setup() {
     const store = useStore()
     const types = [
@@ -96,59 +81,7 @@ export default defineComponent({
   }
 
   .newSongs-list {
-    .newSongs-list-item {
-      margin-top: 20px;
-      display: flex;
-      height: 50px;
-      justify-content: space-between;
-      .content {
-        // flex: 1;
-        display: flex;
-        img {
-          height: 100%;
-          border-radius: 5px;
-          cursor: pointer;
-        }
-        .title {
-          margin-left: 20px;
-          .name {
-            display: block;
-            font-weight: 700;
-            font-size: 18px;
-            margin-bottom: 5px;
-          }
-          .singer {
-            color: #666;
-            cursor: pointer;
-            font-size: 14px;
-          }
-          .singer:hover {
-            color: #1dcf9f;
-          }
-        }
-      }
-      .album {
-        // flex: 1;
-        line-height: 50px;
-        color: #666;
-        cursor: pointer;
-        font-size: 14px;
-      }
-      .album:hover {
-        color: #1dcf9f;
-      }
-      .time {
-        // flex: 1;
-        color: #666;
-        font-size: 14px;
-        line-height: 50px;
-        margin-right: 10px;
-      }
-    }
-    .newSongs-list-item:hover {
-      background-color: rgb(243, 241, 241);
-      border-radius: 10px;
-    }
+    margin-top: 20px;
   }
 }
 </style>

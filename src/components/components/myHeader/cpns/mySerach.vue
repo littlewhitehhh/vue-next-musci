@@ -6,6 +6,7 @@
       trigger="click"
       popper-class="hotSearch"
       @show="showHandle"
+      v-model:visible="isPopoverShow"
     >
       <template #reference>
         <div class="search-input">
@@ -21,8 +22,16 @@
       <!-- 热搜列表 -->
       <div v-if="!keyword">
         <span class="title">热门搜索</span>
-        <div v-for="(item, index) in hotSearchList" :key="item.first" class="listItem">
+        <!-- 热搜列表 -->
+        <div
+          v-for="(item, index) in hotSearchList"
+          :key="item.first"
+          class="listItem"
+          @click="goSearch(item.searchWord)"
+        >
+          <!-- 索引 -->
           <div class="index" :class="index < 3 ? 'red' : ''">{{ index }}</div>
+          <!-- 内容 -->
           <div class="itemContent">
             <div class="top">
               <span class="keywords">{{ item.searchWord }}</span>
@@ -99,39 +108,78 @@
 import { defineComponent } from 'vue'
 import { ref, computed, reactive, toRefs } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 import { searchSuggest } from '@/network/api/search'
 export default defineComponent({
   name: 'mySearch',
 
   setup() {
+    const store = useStore()
+    const router = useRouter()
     const state = reactive({
       suggestList: {}
     })
+    const isPopoverShow = ref(false)
     const keyword = ref('')
     // 根据关键词搜索
     const changeHandle = async () => {
       if (keyword.value) {
         let res = await searchSuggest(keyword.value)
-        console.log(res.result)
+        // console.log(res.result)
         state.suggestList = res.result
       }
     }
 
-    const store = useStore()
     const showHandle = () => {
       store.dispatch('gethotSearchList')
     }
-
+    //热搜列表
     const hotSearchList = computed(() => {
       return store.state.hotSearchList
     })
+
+    // 选中热搜item  获取该item的具体信息
+    const goSearch = async (keywords: string) => {
+      // console.log('111')
+      keyword.value = keywords
+      //在获取一遍搜索推荐
+      changeHandle()
+      isPopoverShow.value = false
+      // 路由跳转到详情页面
+      router.push(`/search/${keywords}`)
+    }
+    const playMusic = (id: number) => {
+      isPopoverShow.value = false
+      console.log('听歌喽', id)
+    }
+    const goToArtist = (id: number) => {
+      isPopoverShow.value = false
+      console.log('去看作者喽', id)
+      router.push(`/artist/${id}`)
+    }
+    const goToAlbum = (id: number) => {
+      isPopoverShow.value = false
+      console.log('去看专辑喽', id)
+      router.push(`/album/${id}`)
+    }
+    const goToPlaylist = (id: number) => {
+      isPopoverShow.value = false
+      console.log('去看歌单喽', id)
+      router.push(`/playlist/${id}`)
+    }
     return {
       keyword,
       changeHandle,
       showHandle,
       hotSearchList,
-      ...toRefs(state)
+      ...toRefs(state),
+      goSearch,
+      isPopoverShow,
+      playMusic,
+      goToArtist,
+      goToAlbum,
+      goToPlaylist
     }
   }
 })

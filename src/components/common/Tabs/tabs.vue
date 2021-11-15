@@ -33,6 +33,7 @@ export default defineComponent({
       emit('changeTabComponent', index)
       // 并获取当前动态组件所需要的数据
     }
+
     return { clickTabsHandle }
   }
 })

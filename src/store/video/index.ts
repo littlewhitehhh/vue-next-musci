@@ -17,7 +17,7 @@ const video: Module<IVideoType, any> = {
   actions: {
     async getVideoData({ commit }, params) {
       const { data } = await getAllMv(params)
-      console.log(data)
+      // console.log(data)
       commit('saveMvList', data)
     }
   },

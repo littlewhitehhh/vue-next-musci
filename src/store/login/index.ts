@@ -70,7 +70,7 @@ const login: Module<ILoginState, any> = {
     async accountLoginAction({ commit }, params: any) {
       // 登录
       const loginResult = await LoginByPhone(params)
-      console.log(loginResult)
+      // console.log(loginResult)
       if (loginResult.code === 200) {
         //1、登陆成功后，储存账号部分信息  头像 名称  id
         const { token, profile, bindings, account, cookie, loginType } = loginResult
@@ -87,7 +87,7 @@ const login: Module<ILoginState, any> = {
 
         //2、通过id获取用户歌单
         const { playlist } = await getPlayList({ uid: account.id })
-        console.log(playlist)
+        // console.log(playlist)
         commit('savePlayList', playlist)
       }
     }

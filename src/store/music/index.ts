@@ -201,21 +201,21 @@ const music: Module<IMusicState, any> = {
     async getPrivateContentData({ commit }) {
       // 获取独家放送列表
       const { result: allPrivatecontentList } = await getAllPrivateConentList({})
-      console.log(allPrivatecontentList)
+      // console.log(allPrivatecontentList)
       commit('saveAllPrivatecontentList', allPrivatecontentList)
     },
 
     // 获取排行榜数据
     async getLeaderboardDate({ commit }) {
       const { list } = await getTopList()
-      console.log(list)
+      // console.log(list)
       commit('saveToplist', list)
     },
 
     // 获取歌手页面数据
     async getArtistData({ commit }, params) {
       const { artists } = await getArtist(params)
-      console.log(artists)
+      // console.log(artists)
       commit('savaArtistsList', artists)
     },
 

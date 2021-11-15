@@ -133,3 +133,79 @@ export function getNewSongs(params: getNewSongsType): any {
     params
   })
 }
+
+// 根据id获取歌单详情
+
+export function getPlaylistById(params: any): any {
+  return MyAxios.get({
+    url: '/playlist/detail',
+    params
+  })
+}
+
+// 获取歌曲的详情
+
+export function getSongDetailById(params: any): any {
+  return MyAxios.get({
+    url: 'song/detail',
+    params
+  })
+}
+
+// 判断歌曲是否可用
+
+export const playAble = (item: any) => {
+  const result = {
+    able: true,
+    type: 0,
+    msg: ''
+  }
+  if (item?.privileges?.pl === 0) {
+    if (item.fee === 1 || item.privileges?.fee === 1) {
+      result.able = false
+      result.type = 1
+      result.msg = '会员歌曲'
+    } else if (item.fee === 4 || item.privileges?.fee === 4) {
+      result.able = false
+      result.type = 2
+      result.msg = '付费歌曲'
+    } else {
+      result.able = false
+      result.type = 3
+      result.msg = '因合作方要求，该资源暂时下架'
+    }
+  }
+  return result
+}
+
+// 获取歌手信息
+export function getArtistsById(id: any) {
+  return MyAxios.get({
+    url: '/artist/detail',
+    params: { id: id }
+  })
+}
+
+//获取歌手热门50首歌曲
+export function getArtistsTopSongs(id: any) {
+  return MyAxios.get({
+    url: '/artist/top/song',
+    params: { id: id }
+  })
+}
+
+// 获取歌手专辑
+export function getArtistsAlbum(params: any) {
+  return MyAxios.get({
+    url: '/artist/album',
+    params
+  })
+}
+
+// 获取相似歌手
+export function getSimiArtists(id: any) {
+  return MyAxios.get({
+    url: '/simi/artist',
+    params: { id }
+  })
+}

@@ -15,6 +15,7 @@ export default createStore({
     }
   },
   actions: {
+    // 获取是热搜榜
     async gethotSearchList({ commit }) {
       const hotSearchList = await searchHot()
       commit('changehotSearchList', hotSearchList)

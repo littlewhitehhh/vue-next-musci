@@ -28,12 +28,7 @@
     </div>
     <!-- 歌手列表 -->
     <div class="artist-list">
-      <template v-for="item in artistsList" :key="item.id">
-        <div class="artist-list-item">
-          <img :src="item.picUrl" alt="" />
-          <span class="title">{{ item.name }}</span>
-        </div>
-      </template>
+      <singer-item :artistsList="artistsList" @goToArtist="goToArtistDetial"></singer-item>
     </div>
   </div>
 </template>
@@ -41,11 +36,18 @@
 <script lang="ts">
 import { defineComponent, ref, reactive, computed } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+
+import singerItem from '@/components/common/singerItem/singerItem.vue'
 
 export default defineComponent({
-  components: {},
+  components: {
+    singerItem
+  },
   setup() {
     const store = useStore()
+    const router = useRouter()
+
     const types = [
       { name: '全部', value: '-1' },
       { name: '男歌手', value: '1' },
@@ -82,7 +84,9 @@ export default defineComponent({
       params.type = value
       store.dispatch('music/getArtistData', params)
     }
-
+    const goToArtistDetial = (id: number) => {
+      router.push('/artist/' + id)
+    }
     return {
       types,
       areas,
@@ -90,7 +94,8 @@ export default defineComponent({
       currentTypeIndex,
       artistsList,
       changeArea,
-      changeType
+      changeType,
+      goToArtistDetial
     }
   }
 })
@@ -114,26 +119,26 @@ export default defineComponent({
       color: #1dcf9f;
     }
   }
-  .artist-list {
-    display: grid;
-    grid-template-columns: repeat(6, 15%);
-    grid-gap: 20px 20px;
-    margin: 20px 0;
-    .artist-list-item {
-      text-align: center;
-      img {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-      }
-      .title {
-        font-size: 14px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        display: block;
-      }
-    }
-  }
+  // .artist-list {
+  //   display: grid;
+  //   grid-template-columns: repeat(6, 15%);
+  //   grid-gap: 20px 20px;
+  //   margin: 20px 0;
+  //   .artist-list-item {
+  //     text-align: center;
+  //     img {
+  //       width: 150px;
+  //       height: 150px;
+  //       border-radius: 50%;
+  //     }
+  //     .title {
+  //       font-size: 14px;
+  //       overflow: hidden;
+  //       text-overflow: ellipsis;
+  //       white-space: nowrap;
+  //       display: block;
+  //     }
+  //   }
+  // }
 }
 </style>

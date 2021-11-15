@@ -2,8 +2,8 @@
   <div class="my-header">
     <div class="left">
       <div class="goBackBtns">
-        <div class="back el-icon-arrow-left"></div>
-        <div class="forward el-icon-arrow-right"></div>
+        <div class="back el-icon-arrow-left" @click="backClick"></div>
+        <div class="forward el-icon-arrow-right" @click="goClick"></div>
       </div>
       <my-search></my-search>
     </div>
@@ -29,6 +29,7 @@
 <script lang="ts">
 import { defineComponent, reactive, toRefs, computed } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 import mySearch from './cpns/mySerach.vue'
 import Login from './cpns/login.vue'
@@ -42,8 +43,10 @@ export default defineComponent({
     UserInfo
   },
   setup() {
+    const router = useRouter()
     // 是否登录
     const store = useStore()
+
     // const nickname = ref('')
     const isLogin = computed(() => {
       return store.state.login.isLogin
@@ -70,7 +73,13 @@ export default defineComponent({
         })
       }
     }
-    return { isLogin, changeIsLoginState, ...toRefs(userInfo) }
+    const goClick = () => {
+      router.go(1)
+    }
+    const backClick = () => {
+      router.go(-1)
+    }
+    return { isLogin, changeIsLoginState, ...toRefs(userInfo), goClick, backClick }
   }
 })
 </script>

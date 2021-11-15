@@ -34,22 +34,12 @@
       <!--歌单展示 -->
       <!-- 热门歌单 -->
       <div v-if="!mode" class="hot-play-list">
-        <template v-for="item in hotPlaylist" :key="item.id">
-          <div class="playlsit-item">
-            <img :src="item.coverImgUrl" alt="" />
-            <span class="title">{{ item.name }}</span>
-          </div>
-        </template>
+        <playlist-item :playlist="hotPlaylist" @open="openPlaylist"></playlist-item>
       </div>
 
       <!-- 精品歌单 -->
       <div v-else class="highquality-play-list">
-        <template v-for="item in highqualityPlaylist" :key="item.id">
-          <div class="playlsit-item">
-            <img :src="item.coverImgUrl" alt="" />
-            <span class="title">{{ item.name }}</span>
-          </div>
-        </template>
+        <playlist-item :playlist="highqualityPlaylist"></playlist-item>
       </div>
     </div>
   </div>
@@ -58,10 +48,17 @@
 <script lang="ts">
 import { defineComponent, computed, ref, reactive, toRefs } from 'vue'
 import { useStore } from 'vuex'
-// import { getTopPlaylist } from '@/network/api/musicHall'
+import { useRouter } from 'vue-router'
+
+import playlistItem from '@/components/common/playlistItem/playlistItem.vue'
+
 export default defineComponent({
+  components: {
+    playlistItem
+  },
   setup() {
     const store = useStore()
+    const router = useRouter()
     //获取playlist页面数据
     store.dispatch('music/getPlayListData')
 
@@ -105,12 +102,17 @@ export default defineComponent({
       currentIndex.value = index
       store.dispatch('music/getPlayListData', { cat: name })
     }
+
+    const openPlaylist = (id: number) => {
+      router.push(`/playlist/${id}`)
+    }
     return {
       ...toRefs(state),
       mode,
       currentIndex,
       // modeContent
-      changeTag
+      changeTag,
+      openPlaylist
     }
   }
 })
@@ -176,26 +178,6 @@ export default defineComponent({
       flex: 1;
       text-align: center;
       cursor: pointer;
-    }
-  }
-  .hot-play-list,
-  .highquality-play-list {
-    display: grid;
-    grid-template-columns: repeat(6, 16%);
-    grid-gap: 20px 20px;
-    margin: 20px 0;
-    .playlsit-item {
-      img {
-        border-radius: 15px;
-        width: 100%;
-      }
-      .title {
-        font-size: 14px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        display: block;
-      }
     }
   }
 

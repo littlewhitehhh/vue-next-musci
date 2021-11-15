@@ -10,14 +10,11 @@
         >推荐歌单<i style="font-size: 22px; text-align: center" class="icon el-icon-arrow-right"></i
       ></span>
       <div class="recommend-playlst">
-        <template v-for="item in recommendPlaylist" :key="item.id">
-          <div class="recommend-playlst-item">
-            <img :src="item.picUrl" alt="" />
-            <span class="title">{{ item.name }}</span>
-          </div>
-        </template>
+        <!-- 推荐歌单组件 -->
+        <playlist-item :playlist="recommendPlaylist" @open="openPlaylist"></playlist-item>
       </div>
     </div>
+
     <!-- 独家放送 -->
     <div>
       <span class="h2" style="cursor: pointer" @click="changeTabsClick(2)"
@@ -27,12 +24,8 @@
         ></i>
       </span>
       <div class="private-content-list">
-        <template v-for="item in privateContentList" :key="item.id">
-          <div class="private-content-list-item">
-            <img :src="item.picUrl" alt="" />
-            <span class="title">{{ item.name }}</span>
-          </div>
-        </template>
+        <!-- 独家放送组件 -->
+        <private-content-item :privateContentList="privateContentList"></private-content-item>
       </div>
     </div>
     <!--最新鲜听 -->
@@ -40,21 +33,8 @@
       <span class="h2" style="margin-right: 10px"
         >最新先听 <i class="el-icon-video-play"></i>
       </span>
-      <div class="music-block">
-        <template v-for="item in rcmdNewPlaylsit" :key="item.id">
-          <div class="music-block-item">
-            <img :src="item.picUrl" alt="" />
-            <div class="content">
-              <!-- 歌曲名 -->
-              <span class="name">{{ item.name }}</span>
-              <!-- 歌手名 -->
-              <span class="singer" v-for="item2 in item.song.artists" :key="item2.id">{{
-                item2.name
-              }}</span>
-            </div>
-          </div>
-        </template>
-      </div>
+
+      <music-block :musicList="rcmdNewPlaylsit"></music-block>
       <!-- <div v-if="rcmdNewSongList.length > 0">
         <div v-for="m of 3" :key="m" class="MusicBlock">
           <MusicBlock
@@ -112,15 +92,19 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 
 import banners from '@/components/common/banners/banners.vue'
+import playlistItem from '@/components/common/playlistItem/playlistItem.vue'
+import privateContentItem from '@/components/common/privateContentItem/privateContentItem.vue'
+import musicBlock from '@/components/common/musicBlock/musicBlock.vue'
 
 export default defineComponent({
-  components: { banners },
+  components: { banners, playlistItem, privateContentItem, musicBlock },
   emits: ['changeTabComponent'],
   setup(props, { emit }) {
     const store = useStore()
-
+    const router = useRouter()
     //获取featuredData数据
     store.dispatch('music/getFeaturedData')
     //获取banners数据
@@ -140,14 +124,18 @@ export default defineComponent({
       return store.state.music.rcmdNewPlaylsit
     })
     // 获取推荐mv
-
     const rcmdMVlist = computed(() => {
       return store.state.music.rcmdMVlist
     })
+    //改变tabs
     const changeTabsClick = (index: number) => {
       emit('changeTabComponent', index)
-
-      console.log('11')
+      // console.log('11')
+    }
+    // 打开歌单页面
+    const openPlaylist = (id: number) => {
+      // console.log(id)
+      router.push(`/playlist/${id}`)
     }
     return {
       banners,
@@ -155,7 +143,8 @@ export default defineComponent({
       privateContentList,
       rcmdNewPlaylsit,
       rcmdMVlist,
-      changeTabsClick
+      changeTabsClick,
+      openPlaylist
     }
   }
 })
@@ -175,87 +164,6 @@ export default defineComponent({
     }
   }
 
-  .recommend-playlst {
-    display: grid;
-    grid-template-columns: repeat(5, 18.5%);
-    grid-gap: 20px 20px;
-    margin: 20px 0;
-    cursor: pointer;
-    .recommend-playlst-item {
-      img {
-        width: 100%;
-        border-radius: 15px;
-      }
-      .title {
-        font-size: 14px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        display: block;
-      }
-    }
-    .recommend-playlst-item:hover img {
-      transform: scale(1.1);
-    }
-  }
-  .private-content-list {
-    display: grid;
-    grid-template-columns: repeat(3, 32%);
-    grid-gap: 20px 20px;
-    margin: 20px 0;
-    cursor: pointer;
-    .private-content-list-item {
-      img {
-        width: 100%;
-        border-radius: 15px;
-      }
-      .title {
-        font-size: 14px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        display: block;
-      }
-    }
-    .private-content-list-item:hover img {
-      transform: scale(1.1);
-    }
-  }
-  .music-block {
-    display: grid;
-    grid-template-columns: repeat(4, 24%);
-    grid-gap: 20px 20px;
-    margin: 20px 0;
-    cursor: pointer;
-
-    .music-block-item {
-      display: flex;
-      border-radius: 5px;
-      img {
-        width: 50px;
-        height: 50px;
-        border-radius: 10px;
-      }
-      .content {
-        margin-left: 20px;
-        flex: 1;
-        span {
-          display: block;
-          width: 100%;
-        }
-        .name {
-          font-weight: 700;
-        }
-        .singer {
-          font-size: 12px;
-          color: #666;
-        }
-      }
-    }
-  }
-  .music-block-item:hover {
-    background-color: rgb(250, 245, 245);
-  }
   .mv-lsit {
     display: grid;
     grid-template-columns: repeat(4, 23.5%);
