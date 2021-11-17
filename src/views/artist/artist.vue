@@ -41,7 +41,7 @@ import { getArtistsById } from '@/network/api/musicHall'
 
 import tabs from '@/components/common/Tabs/tabs.vue'
 import AlbumList from './cpns/album.vue'
-import MvList from './cpns/mvList.vue'
+import videoList from './cpns/videoList.vue'
 import Hot from './cpns/hot.vue'
 import MusicList from './cpns/musicList.vue'
 
@@ -49,7 +49,7 @@ export default defineComponent({
   components: {
     tabs,
     AlbumList,
-    MvList,
+    videoList,
     Hot,
     MusicList
   },
@@ -59,7 +59,7 @@ export default defineComponent({
     const getSingerDetail = async () => {
       let res = await getArtistsById(route.params.id)
       // console.log(res)
-      artist.value = res.data.artist
+      artist.value = res?.data?.artist
     }
     // 获取歌手信息
     getSingerDetail()
@@ -69,7 +69,7 @@ export default defineComponent({
       { title: '精选', name: 'Hot' },
       { title: '歌曲', name: 'MusicList' },
       { title: '专辑', name: 'AlbumList' },
-      { title: 'MV', name: 'MvList' }
+      { title: 'MV', name: 'videoList' }
     ]
     const currentTabComponent = ref('Hot')
     const currentIndex = ref(0)

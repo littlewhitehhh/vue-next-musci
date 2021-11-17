@@ -1,7 +1,7 @@
 <template>
   <div class="music-block">
     <template v-for="item in musicList" :key="item.id">
-      <div class="music-block-item">
+      <div class="music-block-item" @dblclick="play(item.id)">
         <img :src="item.picUrl ? item.picUrl : item.album.picUrl" alt="" />
         <div class="content">
           <!-- 歌曲名 -->
@@ -35,8 +35,15 @@ export default defineComponent({
       required: true
     }
   },
-  setup() {
-    return {}
+  emits: ['playMusic'],
+  setup(props, { emit }) {
+    const play = (id: number) => {
+      // console.log(id)
+      emit('playMusic', id)
+      // 用vuex来存啊
+    }
+
+    return { play }
   }
 })
 </script>

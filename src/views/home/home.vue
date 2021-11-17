@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <!-- <el-button type="primary" @click="handleClick">hahah</el-button> -->
     <el-container>
       <el-aside width="200px" class="aside">
         <my-aside></my-aside>
@@ -12,6 +11,10 @@
         <el-main class="mian">
           <my-main></my-main>
         </el-main>
+        <el-footer>
+          <!-- 播放器control -->
+          <control-bar></control-bar>
+        </el-footer>
       </el-container>
     </el-container>
   </div>
@@ -24,13 +27,14 @@ import MyAxios from '@/network/index'
 import myHeader from '@/components/components/myHeader/myHeader.vue'
 import myAside from '@/components/components/myAside/myAside.vue'
 import myMain from '@/components/components/myMain/myMain.vue'
-
+import controlBar from '@/components/components/controlBar/controlBar.vue'
 export default defineComponent({
   name: 'home',
   components: {
     myHeader,
     myAside,
-    myMain
+    myMain,
+    controlBar
   },
   setup() {
     const handleClick = () => {
@@ -52,6 +56,9 @@ export default defineComponent({
   background-color: #ececec;
 }
 .mian {
-  height: calc(100vh - 60px);
+  height: calc(100vh - 120px);
+}
+.el-footer {
+  padding: 0;
 }
 </style>

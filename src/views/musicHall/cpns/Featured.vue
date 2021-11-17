@@ -34,7 +34,7 @@
         >最新先听 <i class="el-icon-video-play"></i>
       </span>
 
-      <music-block :musicList="rcmdNewPlaylsit"></music-block>
+      <music-block :musicList="rcmdNewPlaylsit" @playMusic="playMusic"></music-block>
       <!-- <div v-if="rcmdNewSongList.length > 0">
         <div v-for="m of 3" :key="m" class="MusicBlock">
           <MusicBlock
@@ -137,6 +137,21 @@ export default defineComponent({
       // console.log(id)
       router.push(`/playlist/${id}`)
     }
+
+    // 播放音乐
+    const playMusic = (id: number) => {
+      // console.log(id)
+      let ids = ''
+      for (const item of rcmdNewPlaylsit.value) {
+        ids += item.id + ','
+      }
+      ids = ids.slice(0, ids.length - 1)
+      // console.log(ids)
+      //获取当前currentMusic
+      store.dispatch('getCurrMusic', { id })
+      // 获取当前播放的歌单
+      store.dispatch('getMusicList', { ids })
+    }
     return {
       banners,
       recommendPlaylist,
@@ -144,7 +159,8 @@ export default defineComponent({
       rcmdNewPlaylsit,
       rcmdMVlist,
       changeTabsClick,
-      openPlaylist
+      openPlaylist,
+      playMusic
     }
   }
 })

@@ -43,13 +43,14 @@
 
     <!-- 歌曲列表 -->
     <div class="musicList">
-      <music-item :musicList="musicList"></music-item>
+      <music-item :musicList="musicList" @playMusic="playMusic"></music-item>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs, ref } from 'vue'
+import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 
 import timeFormat from '@/utils/timeFormat'
@@ -62,6 +63,7 @@ export default defineComponent({
   },
   name: 'playList',
   setup() {
+    const store = useStore()
     const route = useRoute()
     const state = reactive({
       playListInfo: {}
@@ -153,7 +155,22 @@ export default defineComponent({
       // }
     }
     getPlaylistData()
-    return { ...toRefs(state), timeFormat, musicList }
+
+    // 播放音乐
+    const playMusic = (id: number) => {
+      // console.log(id)
+      let ids = ''
+      for (const item of musicList.value) {
+        ids += item.id + ','
+      }
+      ids = ids.slice(0, ids.length - 1)
+      // console.log(ids)
+      //获取当前currentMusic
+      store.dispatch('getCurrMusic', { id })
+      // 获取当前播放的歌单
+      store.dispatch('getMusicList', { ids })
+    }
+    return { ...toRefs(state), timeFormat, musicList, playMusic }
   }
 })
 </script>

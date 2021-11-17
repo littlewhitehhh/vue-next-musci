@@ -1,5 +1,5 @@
 <template>
-  <div class="music-item" v-for="item in musicList" :key="item.id">
+  <div class="music-item" v-for="item in musicList" :key="item.id" @dblclick="play(item.id)">
     <div class="content">
       <!-- 头像 -->
       <div class="image">
@@ -37,8 +37,14 @@ export default defineComponent({
       required: true
     }
   },
-  setup() {
-    return { timeFormat }
+  emits: ['playMusic'],
+  setup(props, { emit }) {
+    const play = (id: string) => {
+      console.log(id)
+
+      emit('playMusic', id)
+    }
+    return { timeFormat, play }
   }
 })
 </script>
